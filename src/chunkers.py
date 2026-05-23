@@ -1,3 +1,11 @@
+import re
+
+
+def sentence_split(text: str) -> list[str]:
+    raw = re.split(r"(?<=[.?!])\s+", text.strip())
+    return [s.strip() for s in raw if s.strip()]
+
+
 def naive_chunks(text: str, size: int = 200, overlap: int = 40) -> list[str]:
     chunks = []
     start = 0
