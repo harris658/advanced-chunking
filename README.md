@@ -21,12 +21,12 @@ Concrete success bar: the khadi query that returned a pronoun-only chunk in naiv
 
 ## Approach
 
-- [ ] Step 1 — Baseline: reload corpus, re-run naive chunking, log the known failures
-- [ ] Step 2 — Recursive splitting: implement hierarchy splitter, inspect chunk boundaries
-- [ ] Step 3 — Sentence-window: index sentences, build context window retrieval
-- [ ] Step 4 — Semantic chunking: embed sentences, detect boundary by similarity drops
-- [ ] Step 5 — Benchmark: same 4 queries across all strategies, compare retrieved chunks
-- [ ] Step 6 — Failure analysis: what does each strategy still miss?
+- [x] Step 1 — Baseline: reload corpus, re-run naive chunking, log the known failures
+- [x] Step 2 — Recursive splitting: implement hierarchy splitter, inspect chunk boundaries
+- [x] Step 3 — Sentence-window: index sentences, build context window retrieval
+- [x] Step 4 — Semantic chunking: embed sentences, detect boundary by similarity drops
+- [x] Step 5 — Benchmark: same 4 queries across all strategies, compare retrieved chunks
+- [x] Step 6 — Failure analysis: what does each strategy still miss?
 
 ## Setup
 
@@ -45,4 +45,13 @@ python src/main.py
 
 ## Results
 
-See `notes.md` for the running log.
+| Strategy | "what is khadi" | "what is a kurta" | "what can we wear to weddings" |
+|---|---|---|---|
+| Naive | 0.7193 | 0.6608 | 0.6043 |
+| Recursive | 0.7479 | 0.6639 | **0.6317** |
+| Sentence-window | **0.7875** | 0.6500 | 0.6309 |
+| Semantic | 0.6967 | 0.6530 | 0.5731 |
+
+No single strategy wins every query. Sentence-window is most reliable for specific factual lookups; recursive for broader questions. Semantic chunking requires careful threshold tuning and underperforms on domain-specific corpora where similarity scores cluster in a narrow band.
+
+See `notes.md` for the full session log and failure analysis.
