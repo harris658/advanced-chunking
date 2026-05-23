@@ -1,4 +1,5 @@
 import re
+import numpy as np
 
 
 def sentence_split(text: str) -> list[str]:
@@ -57,3 +58,27 @@ def recursive_chunks(text: str, size: int = 200, overlap: int = 40) -> list[str]
             result.append(prev_tail + " | " + chunk)
 
     return result
+
+
+def semantic_chunks(
+    sentences: list[str],
+    embeddings: list[np.ndarray],
+    threshold: float = 0.5,
+) -> list[str]:
+    from retriever import cosine_similarity
+
+    chunks = []
+    current = [sentences[0]]
+
+    for i in range(1, len(sentences)):
+        sim = cosine_similarity(embeddings[i - 1], embeddings[i])
+        if sim < threshold:
+            chunks.append(" ".join(current))
+            current = [sentences[i]]
+        else:
+            current.append(sentences[i])
+
+    if current:
+        chunks.append(" ".join(current))
+
+    return chunks
