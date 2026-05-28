@@ -2,6 +2,18 @@
 
 > Three chunking strategies that fix the failure modes of naive fixed-size splitting — benchmarked on the same corpus.
 
+## Showcase
+
+- **What this proves:** I can diagnose chunking failures and benchmark fixes objectively, not by feel.
+- **Headline result:** Four strategies on the same corpus + queries — sentence-window won factual lookup (khadi **0.7875** vs naive 0.7193), recursive won broad queries (0.6317); semantic underperformed where domain scores cluster. No single winner.
+- **Demo:** `python src/main.py`
+
+## Concepts practiced
+
+- [Chunking](../../concepts/chunking.md)
+- [Embeddings & cosine similarity](../../concepts/embeddings-and-cosine-similarity.md)
+- [Retrieval-Augmented Generation](../../concepts/retrieval-augmented-generation.md)
+
 ## Source
 
 - **Wiki page:** `concepts/retrieval-augmented-generation` — Level 2 Advanced RAG section
